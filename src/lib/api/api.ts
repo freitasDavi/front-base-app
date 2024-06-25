@@ -1,6 +1,7 @@
 import { ofetch } from 'ofetch'
 import type { TokenResponse } from './responses/TokenResponse'
-import { getCookie } from '../cookies'
+import { deleteCookie, getCookie } from '../cookies'
+import router from '@/router'
 
 const baseURL = 'https://localhost:7172/api/'
 let token = getCookie('tkn-auth')
@@ -23,7 +24,8 @@ const api = ofetch.create({
   },
   onResponseError({ response }) {
     if (response.status == 401) {
-      console.log('Não autorizado')
+      deleteCookie('tkn-auth')
+      router.push('/login')
     }
   }
 })
