@@ -7,6 +7,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
 import { unAuthApi } from "@/lib/api/api";
 import type { TokenResponse } from "@/lib/api/responses/TokenResponse";
+import { setCookie } from "@/lib/cookies";
 
 const validationSchema = toTypedSchema(
     z.object({
@@ -31,7 +32,7 @@ const onSubmit = handleSubmit(async (values) => {
         }
     })
 
-    console.log(response.msg)
+    setCookie("tkn-auth", response.msg)
 })
 
 </script>

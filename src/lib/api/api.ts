@@ -1,8 +1,9 @@
 import { ofetch } from 'ofetch'
 import type { TokenResponse } from './responses/TokenResponse'
+import { getCookie } from '../cookies'
 
 const baseURL = 'https://localhost:7172/api/'
-let token = ''
+let token = getCookie('tkn-auth')
 
 const unAuthApi = ofetch.create({
   baseURL,
