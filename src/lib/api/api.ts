@@ -21,7 +21,7 @@ const api = ofetch.create({
   headers: {
     Authorization: `Bearer ${token}`
   },
-  onResponseError({ request, response, options }) {
+  onResponseError({ response }) {
     if (response.status == 401) {
       console.log('Não autorizado')
     }
