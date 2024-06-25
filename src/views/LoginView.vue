@@ -8,6 +8,11 @@ import { useForm } from "vee-validate";
 import { unAuthApi } from "@/lib/api/api";
 import type { TokenResponse } from "@/lib/api/responses/TokenResponse";
 import { setCookie } from "@/lib/cookies";
+import { useToast } from "primevue/usetoast"
+import { useRouter } from "vue-router";
+
+const toast = useToast()
+const router = useRouter()
 
 const validationSchema = toTypedSchema(
     z.object({
@@ -33,6 +38,16 @@ const onSubmit = handleSubmit(async (values) => {
     })
 
     setCookie("tkn-auth", response.msg)
+    toast.add({
+        severity: "success",
+        summary: "Sucesso",
+        detail: "Login realizado com sucesso",
+        life: 2000,
+    })
+
+    setTimeout(() => {
+        router.push("/")
+    }, 2300)
 })
 
 </script>
