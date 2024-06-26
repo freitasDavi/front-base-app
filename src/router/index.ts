@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import { getCookie } from '@/lib/cookies'
+import { useUserStore } from '@/stores/user'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,12 +22,17 @@ const router = createRouter({
       path: '/login',
       name: 'Login',
       component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/orcamentos',
+      name: 'Orçamentos',
+      component: () => import('../views/orcamentos/OrcamentoView.vue')
     }
   ]
 })
 
-router.beforeEach(async (to, from) => {
-  const token = getCookie('tkn-auth')
+router.beforeEach(async (to) => {
+  const { token } = useUserStore()
 
   if (!token && to.name !== 'Login') {
     return { name: 'Login' }
