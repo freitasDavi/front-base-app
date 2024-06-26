@@ -7,12 +7,14 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
 import { unAuthApi } from "@/lib/api/api";
 import type { TokenResponse } from "@/lib/api/responses/TokenResponse";
-import { setCookie } from "@/lib/cookies";
+
 import { useToast } from "primevue/usetoast"
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user";
 
 const toast = useToast()
 const router = useRouter()
+const { setToken } = useUserStore()
 
 const validationSchema = toTypedSchema(
     z.object({
@@ -37,7 +39,7 @@ const onSubmit = handleSubmit(async (values) => {
         }
     })
 
-    setCookie("tkn-auth", response.msg)
+    setToken(response.msg)
     toast.add({
         severity: "success",
         summary: "Sucesso",
@@ -47,7 +49,7 @@ const onSubmit = handleSubmit(async (values) => {
 
     setTimeout(() => {
         router.push("/")
-    }, 2300)
+    }, 2300);
 })
 
 </script>

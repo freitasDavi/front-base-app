@@ -1,4 +1,4 @@
-function setCookie(id: string, value: string) {
+async function setCookie(id: string, value: string) {
   document.cookie = `${id}=${value}`
 }
 
