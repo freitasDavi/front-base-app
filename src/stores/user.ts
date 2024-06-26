@@ -22,7 +22,5 @@ export const useUserStore = defineStore('user', () => {
     return token.value.length > 0
   }
 
-  console.log(token.value)
-
   return { setToken, deleteToken, isUserLoggedIn, token }
 })
