@@ -11,6 +11,7 @@ import type { TokenResponse } from "@/lib/api/responses/TokenResponse";
 import { useToast } from "primevue/usetoast"
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
+import { setCookie } from "@/lib/cookies";
 
 const toast = useToast()
 const router = useRouter()
@@ -40,6 +41,7 @@ const onSubmit = handleSubmit(async (values) => {
     })
 
     setToken(response.msg)
+    setCookie("@tkn-auth", response.msg)
     toast.add({
         severity: "success",
         summary: "Sucesso",
