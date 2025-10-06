@@ -1,3 +1,4 @@
 export type TokenResponse = {
-  msg: string
+  name: string,
+  token: string
 }

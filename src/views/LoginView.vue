@@ -32,26 +32,39 @@ const [email] = defineField('email')
 const [password] = defineField('password')
 
 const onSubmit = handleSubmit(async (values) => {
-    const response = await unAuthApi<TokenResponse>("Auth/login", {
-        method: "POST",
-        body: {
-            email: values.email,
-            password: values.password
-        }
-    })
+    try {
+        const response = await unAuthApi<TokenResponse>("Auth/login", {
+            method: "POST",
+            body: {
+                email: values.email,
+                password: values.password
+            }
+        })
 
-    setToken(response.msg)
-    setCookie("@tkn-auth", response.msg)
-    toast.add({
-        severity: "success",
-        summary: "Sucesso",
-        detail: "Login realizado com sucesso",
-        life: 2000,
-    })
+        console.log(response.token)
 
-    setTimeout(() => {
-        router.push("/")
-    }, 2300);
+        setToken(response.token)
+        setCookie("@tkn-auth", response.token)
+        toast.add({
+            severity: "success",
+            summary: "Sucesso",
+            detail: "Login realizado com sucesso",
+            life: 2000,
+        })
+
+        setTimeout(() => {
+            router.push("/")
+        }, 2300);
+    } catch (err) {
+        console.log(err)
+
+        toast.add({
+            severity: "error",
+            summary: "Erro",
+            detail: "Falha ao realizar login, verifique suas credenciais",
+            life: 2000,
+        })
+    }
 })
 
 </script>
